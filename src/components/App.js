@@ -73,22 +73,23 @@ class App extends React.Component {
         <PopupWithForm
           name={'edit-profile'}
           title={'Редактировать профиль'}
+          buttonText={'Сохранить'}
           onClose={this.closeAllPopups}
           isOpen={this.state.isEditProfilePopupOpen}>
             <label className="popup__form-field">
-              <input id="username-input" className="popup__input-field" required type="text" name="username" minLength="2" maxLength="40" />
+              <input id="username-input" className="popup__input-field" required type="text" name="username" placeholder="Имя пользователя" minLength="2" maxLength="40" />
               <span className="popup__input-error username-input-error"></span>
             </label>
             <label className="popup__form-field">
-              <input id="job-input" className="popup__input-field" required type="text" name="about" minLength="2" maxLength="200" />
+              <input id="job-input" className="popup__input-field" required type="text" name="about" placeholder="О себе" minLength="2" maxLength="200" />
               <span className="popup__input-error job-input-error"></span>
             </label>
-            <button className="popup__submit-button" type="submit" name="save">Сохранить</button>
         </PopupWithForm>
 
         <PopupWithForm
           name={'add-place'}
           title={'Новое место'}
+          buttonText={'Создать'}
           onClose={this.closeAllPopups}
           isOpen={this.state.isAddPlacePopupOpen}>
             <label className="popup__form-field">
@@ -99,23 +100,24 @@ class App extends React.Component {
               <input id="place-link-input" className="popup__input-field" required type="url" name="link" placeholder="Ссылка на картинку" />
               <span className="popup__input-error place-link-input-error"></span>
             </label>
-            <button className="popup__submit-button" type="submit" name="create">Создать</button>
         </PopupWithForm>
 
         <PopupWithForm
           name={'change-avatar'}
           title={'Обновить аватар'}
+          buttonText={'Сохранить'}
           onClose={this.closeAllPopups}
           isOpen={this.state.isEditAvatarPopupOpen}>
-            <label className="popup__form-field">
+            <label className="popup__form-field popup__form-field_place_change-avatar">
               <input id="avatar-link-input" className="popup__input-field" required type="url" name="avatarLink" placeholder="Ссылка на аватар" />
               <span className="popup__input-error avatar-link-input-error"></span>
             </label>
-            <button className="popup__submit-button popup__submit-button_place_change-avatar" type="submit" name="save">Сохранить</button>
         </PopupWithForm>
 
-        <PopupWithForm name={'card-delete-confirm'} title={'Вы уверены?'}>
-          <button className="popup__submit-button popup__submit-button_place_card-delete-confirm" type="submit" name="confirm">Да</button>
+        <PopupWithForm
+          name={'card-delete-confirm'}
+          title={'Вы уверены?'}
+          buttonText={'Да'}>
         </PopupWithForm>
 
         <ImagePopup

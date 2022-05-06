@@ -54,8 +54,7 @@
 @import url(./blocks/popup/__image-caption/popup__image-caption.css);
 @import url(./blocks/popup/__container/_type/popup__container_type_card-delete-confirm.css);
 @import url(./blocks/popup/__title/_place/popup__title_place_card-delete-confirm.css);
-@import url(./blocks/popup/__submit-button/_place/popup__submit-button_place_card-delete-confirm.css);
-@import url(./blocks/popup/__submit-button/_place/popup__submit-button_place_change-avatar.css);
+
 
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);

@@ -24,7 +24,7 @@ class Main extends React.Component {
       })
     })
     .catch(err => { 
-      console.log(err) 
+      console.log(err)
     })
     api.getCards()
     .then(_ => {
@@ -32,6 +32,9 @@ class Main extends React.Component {
         cards: _
       })
     })
+    .catch(err => { 
+      console.log(err)
+    })  
   }
 
   render() {
@@ -60,10 +63,10 @@ class Main extends React.Component {
 
         <section className="elements">
           <ul className="elements__grid">
-            {this.state.cards.map(_ => (
+            {this.state.cards.map(card => (
               <Card
-                card={_}
-                key={_._id}
+                card={card}
+                key={card._id}
                 onCardClick={this.props.onCardClick}
               />
             ))}
