@@ -11,28 +11,30 @@ function EditProfilePopup(props) {
     description: ''
   })
 
-  useEffect(() => {
-    setFormValues({
-      name: currentUser.name,
-      description: currentUser.about
-    })
-  }, [currentUser])
-
-
   const handleChange = useCallback((event) => {
     const { name, value } = event.target;
     setFormValues(prevState => ({ ...prevState, [name]: value }))
   }, [setFormValues])
-
+  
   const { name, description } = formValues;
 
+  useEffect(() => {
+    if (!props.isOpen) {
+      setFormValues({
+        name: currentUser.name,
+        description: currentUser.about
+      })
+      console.log(formValues)
+    }
+  }, [props.isOpen])
+  
   function handleSubmit(event) {
     event.preventDefault()
-
+    
     props.onUpdateUser({
       name,
       about: description
-    })
+    }) 
   }
     
     return (
@@ -45,7 +47,7 @@ function EditProfilePopup(props) {
         onSubmit={handleSubmit}>
         <label className="popup__form-field">
           <input
-            value={name}
+            value={name || ''}
             onChange={handleChange}
             name="name"
             id="username-input"
@@ -59,7 +61,7 @@ function EditProfilePopup(props) {
         </label>
         <label className="popup__form-field">
           <input
-            value={description}
+            value={description || ''}
             onChange={handleChange}
             name="description"
             id="job-input"

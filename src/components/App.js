@@ -12,6 +12,9 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 
 class App extends React.Component {
+
+  static contextType = CurrentUserContext
+
   constructor(props) {
     super(props)
 
@@ -25,32 +28,36 @@ class App extends React.Component {
     }
   }
 
-  insertNewCard = (newCard, card) => {
-    this.componentDidMount((state) => state.map((c) => c._id === card._id ? newCard : c))
-  }
-
   handleCardDelete = card => {
     api.deleteCard(card._id)
-    .then((card) => this.componentDidMount((state) => state.filter((element) => !(element._id === card._id))))
+    .then(() => {
+      this.setState({
+        cards: this.state.cards.filter((element) => !(element._id === card._id))
+      })
+    })
     .catch(err => { 
       console.log(err)
     })
   }
 
   handleCardLike = card => {
-    const isLiked = card.likes.some(i => i._id === this.context._id);
+    const isLiked = card.likes.some(i => i._id === this.state.currentUser._id);
 
     isLiked ?
     api.removeLike(card._id)
     .then((newCard) => {
-      this.insertNewCard(newCard)
+      this.setState({
+        cards: this.state.cards.map((c) => (c._id === card._id) ? newCard : c)
+      })
     })
     .catch(err => { 
       console.log(err)
     }) :
     api.setLike(card._id)
     .then((newCard) => {
-      this.insertNewCard(newCard)
+      this.setState({
+        cards: this.state.cards.map((c) => c._id === card._id ? newCard : c)
+      })
     })
     .catch(err => { 
       console.log(err)
@@ -93,7 +100,6 @@ class App extends React.Component {
       this.setState({
         cards: [newCard, ...this.state.cards]
       })
-      console.log(this.state.cards)
       this.closeAllPopups()
     })
     .catch(err => {

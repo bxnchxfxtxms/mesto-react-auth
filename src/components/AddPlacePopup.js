@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import PopupWithForm from './PopupWithForm'
 
 function AddPlacePopup(props) {
@@ -12,8 +12,17 @@ function AddPlacePopup(props) {
     const { name, value } = event.target;
     setFormValues(prevState => ({ ...prevState, [name]: value }))
   }, [setFormValues])
-
+  
   const { name, link } = formValues;
+  
+  useEffect(() => {
+    if (props.isOpen) {
+      setFormValues({
+        name: '',
+        link: ''
+      })
+    }
+  }, [props.isOpen])
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -31,6 +40,7 @@ function AddPlacePopup(props) {
       onSubmit={handleSubmit}>
         <label className="popup__form-field">
           <input
+            value={name || ''}
             onChange={handleChange}
             id="place-title-input"
             className="popup__input-field"
@@ -44,6 +54,7 @@ function AddPlacePopup(props) {
         </label>
         <label className="popup__form-field">
           <input
+            value={link || ''}
             onChange={handleChange}
             id="place-link-input"
             className="popup__input-field"

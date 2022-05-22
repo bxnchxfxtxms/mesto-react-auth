@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useState, useCallback, useRef, useEffect } from 'react'
 import PopupWithForm from './PopupWithForm'
 
 function EditAvatarPopup(props) {
@@ -9,16 +9,24 @@ function EditAvatarPopup(props) {
     avatar: ''
   })
 
+useEffect(() => {
+  if (props.isOpen) {
+    setFormValues({
+      avatar: ''
+    })
+  }
+}, [props.isOpen])
+
   const handleChange = useCallback(() => {
     setFormValues({
       avatar: inputRef.current.value
     })
   }, [setFormValues])
 
+  const { avatar } = formValues;
+
   function handleSubmit(event) {
     event.preventDefault();
-
-    console.log(inputRef.current.value)
   
     props.onUpdateAvatar({
       avatar: inputRef.current.value
@@ -35,6 +43,7 @@ function EditAvatarPopup(props) {
       onSubmit={handleSubmit}>
         <label className="popup__form-field popup__form-field_place_change-avatar">
         <input
+          value={avatar || ''}
           onChange={handleChange}
           ref={inputRef}
           id="avatar-link-input"
