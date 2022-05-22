@@ -19,12 +19,11 @@ function EditProfilePopup(props) {
   const { name, description } = formValues;
 
   useEffect(() => {
-    if (!props.isOpen) {
+    if (!props.isOpen || 'undefined' || '') {
       setFormValues({
         name: currentUser.name,
         description: currentUser.about
       })
-      console.log(formValues)
     }
   }, [props.isOpen])
   
